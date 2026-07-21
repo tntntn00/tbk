@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WashScene.unity
     guid: b57bd882fea7874449bfe3c0a9a62025
+  - enabled: 1
+    path: Assets/Scenes/CookScene.unity
+    guid: 0b0d784c27a6a984585b4b1dcd0bdc56
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

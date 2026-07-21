@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Scene\SceneChanger.cs" />
+    <Compile Include="Assets\Scripts\WashManager.cs" />
     <Compile Include="Assets\Scripts\PlayerNameManager.cs" />
   </ItemGroup>
   <ItemGroup>
