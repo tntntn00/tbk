@@ -38,7 +38,8 @@ public class WashManager : MonoBehaviour
         nextButton.gameObject.SetActive(false);
         waterEffect.SetActive(false);
 
-        riceCakeImage.color = new Color32(220, 220, 220, 255);
+        riceCakeImage.color =
+            new Color32(220, 220, 220, 255);
     }
 
     public void SelectWheatRiceCake()
@@ -49,9 +50,13 @@ public class WashManager : MonoBehaviour
         }
 
         selectedRiceCake = "Wheat";
+        GameData.SelectedRiceCake = "Wheat";
 
-        riceCakeImage.color = new Color32(228, 210, 165, 255);
-        statusText.text = "Wheat rice cake selected";
+        riceCakeImage.color =
+            new Color32(228, 210, 165, 255);
+
+        statusText.text =
+            "Wheat rice cake selected";
 
         wheatButton.interactable = false;
         riceButton.interactable = true;
@@ -66,9 +71,13 @@ public class WashManager : MonoBehaviour
         }
 
         selectedRiceCake = "Rice";
+        GameData.SelectedRiceCake = "Rice";
 
-        riceCakeImage.color = new Color32(248, 243, 230, 255);
-        statusText.text = "Rice rice cake selected";
+        riceCakeImage.color =
+            new Color32(248, 243, 230, 255);
+
+        statusText.text =
+            "Rice rice cake selected";
 
         wheatButton.interactable = true;
         riceButton.interactable = false;
@@ -84,7 +93,9 @@ public class WashManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(selectedRiceCake))
         {
-            statusText.text = "Select rice cake first";
+            statusText.text =
+                "Select rice cake first";
+
             return;
         }
 
@@ -107,7 +118,9 @@ public class WashManager : MonoBehaviour
         while (elapsedTime < washDuration)
         {
             elapsedTime += Time.deltaTime;
-            progressSlider.value = elapsedTime / washDuration;
+
+            progressSlider.value =
+                elapsedTime / washDuration;
 
             yield return null;
         }
