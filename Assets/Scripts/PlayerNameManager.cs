@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerNameManager : MonoBehaviour
@@ -10,12 +11,14 @@ public class PlayerNameManager : MonoBehaviour
     [Header("Name UI")]
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private TMP_Text shopNameText;
+    [SerializeField] private Image logoImage;
 
     private void Start()
     {
         // 시작할 때 입력 화면만 표시
         nameInputPanel.SetActive(true);
         mainPanel.SetActive(false);
+        logoImage.enabled=true;
 
         inputField.text = "";
         inputField.Select();
@@ -40,6 +43,7 @@ public class PlayerNameManager : MonoBehaviour
 
         // 메인 화면부터 켜기
         mainPanel.SetActive(true);
+        logoImage.enabled=false;
 
         // 입력창, Confirm 버튼, 흐릿한 배경을 포함한 패널 전체 끄기
         nameInputPanel.SetActive(false);
