@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Scene\SceneChanger.cs" />
     <Compile Include="Assets\Scripts\WashManager.cs" />
+    <Compile Include="Assets\Scripts\PackageManager.cs" />
     <Compile Include="Assets\Scripts\PlayerNameManager.cs" />
     <Compile Include="Assets\Scripts\Animation\LogoDropAnimation.cs" />
     <Compile Include="Assets\Scripts\Scene\GameData.cs" />

@@ -39,7 +39,7 @@ public class PlayerNameManager : MonoBehaviour
         }
 
         // 가게 이름 변경
-        shopNameText.text = playerName + "'의 떡볶이 가게";
+        shopNameText.text = playerName + "의 떡볶이 가게";
 
         // 메인 화면부터 켜기
         mainPanel.SetActive(true);

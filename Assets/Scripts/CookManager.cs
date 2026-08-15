@@ -21,21 +21,10 @@ public class CookManager : MonoBehaviour
     [SerializeField] private Button mediumButton;
     [SerializeField] private Button spicyButton;
 
-    [Header("Water and Fire")]
-    [SerializeField] private Button waterButton;
-    [SerializeField] private RectTransform waterFill;
-    [SerializeField] private float maxWaterFillHeight = 180f;
-
-    [SerializeField] private Button fireButton;
-    [SerializeField] private TMP_Text fireButtonText;
-    [SerializeField] private GameObject fireEffect;
-
     [Header("Cooking UI")]
     [SerializeField] private Button startCookingButton;
     [SerializeField] private Button nextButton;
-
     [SerializeField] private Slider cookingSlider;
-
     [SerializeField] private TMP_Text statusText;
     [SerializeField] private TMP_Text potStatusText;
 
@@ -49,11 +38,22 @@ public class CookManager : MonoBehaviour
 
     [SerializeField] private GameObject cookingEffect;
 
-    [Header("Cooking Settings")]
-    [SerializeField] private float cookingDuration = 3f;
-    [SerializeField] private string nextSceneName = "PackageScene";
+    [Header("Heat Control")]
+    [SerializeField] private GameObject heatGaugePanel;
+    [SerializeField] private RectTransform heatGauge;
+    [SerializeField] private RectTransform heatMarker;
 
-    private const int MaxWaterLevel = 5;
+    [SerializeField] private Button fireButton;
+    [SerializeField] private TMP_Text fireButtonText;
+
+    [Header("Heat Settings")]
+    [SerializeField] private float markerSpeed = 280f;
+
+    [Range(0.1f, 0.8f)]
+    [SerializeField] private float perfectZoneRatio = 0.30f;
+
+    [Header("Scene")]
+    [SerializeField] private string nextSceneName = "PackageScene";
 
     private string selectedSauce = "";
     private string selectedSpicy = "";
@@ -62,11 +62,10 @@ public class CookManager : MonoBehaviour
     private bool greenOnionSelected;
     private bool cheeseSelected;
 
-    private int waterLevel;
-    private bool fireOn;
-
-    private bool isCooking;
+    private bool heatGameRunning;
     private bool cookingCompleted;
+
+    private float markerDirection = 1f;
 
     private Color originalNormalColor;
     private Color creamNormalColor;
@@ -92,47 +91,37 @@ public class CookManager : MonoBehaviour
         cookingSlider.value = 0f;
         cookingSlider.interactable = false;
 
-        statusText.text =
-            "Select sauce, spicy level, water and fire";
-
-        potStatusText.text =
-            "Select sauce and ingredients";
+        statusText.text = "Select sauce and spicy level";
+        potStatusText.text = "Select sauce and ingredients";
 
         startCookingButton.interactable = false;
         nextButton.gameObject.SetActive(false);
+
+        fireButton.interactable = false;
+        fireButtonText.text = "Fire OFF";
 
         fishCakeImage.SetActive(false);
         greenOnionImage.SetActive(false);
         cheeseImage.SetActive(false);
 
         cookingEffect.SetActive(false);
-        fireEffect.SetActive(false);
+        heatGaugePanel.SetActive(false);
 
         sauceImage.color =
             new Color32(170, 210, 225, 255);
 
         ApplyRiceCakeSelection();
 
-        waterLevel = 0;
-
-        waterFill.SetSizeWithCurrentAnchors(
-            RectTransform.Axis.Vertical,
-            0f
-        );
-
-        fireOn = false;
-
-        fireButtonText.text = "Fire OFF";
-
-        fireButton.image.color =
-            new Color32(80, 80, 80, 255);
-
         RestoreAllButtonColors();
     }
 
-    // ==================================================
-    // Rice Cake from WashScene
-    // ==================================================
+    private void Update()
+    {
+        if (!heatGameRunning)
+            return;
+
+        MoveHeatMarker();
+    }
 
     private void ApplyRiceCakeSelection()
     {
@@ -153,16 +142,10 @@ public class CookManager : MonoBehaviour
         }
     }
 
-    // ==================================================
-    // Sauce Selection
-    // ==================================================
-
     public void SelectOriginalSauce()
     {
         if (CannotChangeSelection())
-        {
             return;
-        }
 
         selectedSauce = "Original";
 
@@ -170,19 +153,16 @@ public class CookManager : MonoBehaviour
             new Color32(230, 55, 45, 255);
 
         RestoreSauceButtonColors();
-        originalButton.image.color =
-            selectedHighlightColor;
+        originalButton.image.color = selectedHighlightColor;
 
         UpdateStatus();
-        CheckCookingCondition();
+        CheckStartCondition();
     }
 
     public void SelectCreamSauce()
     {
         if (CannotChangeSelection())
-        {
             return;
-        }
 
         selectedSauce = "Cream";
 
@@ -190,19 +170,16 @@ public class CookManager : MonoBehaviour
             new Color32(255, 190, 110, 255);
 
         RestoreSauceButtonColors();
-        creamButton.image.color =
-            selectedHighlightColor;
+        creamButton.image.color = selectedHighlightColor;
 
         UpdateStatus();
-        CheckCookingCondition();
+        CheckStartCondition();
     }
 
     public void SelectJjajangSauce()
     {
         if (CannotChangeSelection())
-        {
             return;
-        }
 
         selectedSauce = "Jjajang";
 
@@ -210,23 +187,16 @@ public class CookManager : MonoBehaviour
             new Color32(125, 75, 45, 255);
 
         RestoreSauceButtonColors();
-        jjajangButton.image.color =
-            selectedHighlightColor;
+        jjajangButton.image.color = selectedHighlightColor;
 
         UpdateStatus();
-        CheckCookingCondition();
+        CheckStartCondition();
     }
-
-    // ==================================================
-    // Ingredient Toggle
-    // ==================================================
 
     public void ToggleFishCake()
     {
         if (CannotChangeSelection())
-        {
             return;
-        }
 
         fishCakeSelected = !fishCakeSelected;
 
@@ -243,9 +213,7 @@ public class CookManager : MonoBehaviour
     public void ToggleGreenOnion()
     {
         if (CannotChangeSelection())
-        {
             return;
-        }
 
         greenOnionSelected = !greenOnionSelected;
 
@@ -262,9 +230,7 @@ public class CookManager : MonoBehaviour
     public void ToggleCheese()
     {
         if (CannotChangeSelection())
-        {
             return;
-        }
 
         cheeseSelected = !cheeseSelected;
 
@@ -278,148 +244,52 @@ public class CookManager : MonoBehaviour
         UpdateStatus();
     }
 
-    // ==================================================
-    // Spicy Selection
-    // ==================================================
-
     public void SelectMild()
     {
         if (CannotChangeSelection())
-        {
             return;
-        }
 
         selectedSpicy = "Mild";
 
         RestoreSpicyButtonColors();
-        mildButton.image.color =
-            selectedHighlightColor;
+        mildButton.image.color = selectedHighlightColor;
 
         UpdateStatus();
-        CheckCookingCondition();
+        CheckStartCondition();
     }
 
     public void SelectMedium()
     {
         if (CannotChangeSelection())
-        {
             return;
-        }
 
         selectedSpicy = "Medium";
 
         RestoreSpicyButtonColors();
-        mediumButton.image.color =
-            selectedHighlightColor;
+        mediumButton.image.color = selectedHighlightColor;
 
         UpdateStatus();
-        CheckCookingCondition();
+        CheckStartCondition();
     }
 
     public void SelectSpicy()
     {
         if (CannotChangeSelection())
-        {
             return;
-        }
 
         selectedSpicy = "Spicy";
 
         RestoreSpicyButtonColors();
-        spicyButton.image.color =
-            selectedHighlightColor;
+        spicyButton.image.color = selectedHighlightColor;
 
         UpdateStatus();
-        CheckCookingCondition();
+        CheckStartCondition();
     }
-
-    // ==================================================
-    // Water
-    // ==================================================
-
-    public void AddWater()
-    {
-        if (CannotChangeSelection())
-        {
-            return;
-        }
-
-        if (waterLevel >= MaxWaterLevel)
-        {
-            return;
-        }
-
-        waterLevel++;
-
-        float ratio =
-            (float)waterLevel / MaxWaterLevel;
-
-        float currentHeight =
-            maxWaterFillHeight * ratio;
-
-        waterFill.SetSizeWithCurrentAnchors(
-            RectTransform.Axis.Vertical,
-            currentHeight
-        );
-
-        statusText.text =
-            "Water: "
-            + waterLevel
-            + " / "
-            + MaxWaterLevel;
-
-        if (waterLevel >= MaxWaterLevel)
-        {
-            waterButton.interactable = false;
-            statusText.text = "Water filled";
-        }
-
-        CheckCookingCondition();
-    }
-
-    // ==================================================
-    // Fire
-    // ==================================================
-
-    public void ToggleFire()
-    {
-        if (CannotChangeSelection())
-        {
-            return;
-        }
-
-        fireOn = !fireOn;
-
-        fireEffect.SetActive(fireOn);
-
-        if (fireOn)
-        {
-            fireButtonText.text = "Fire ON";
-
-            fireButton.image.color =
-                new Color32(255, 100, 40, 255);
-        }
-        else
-        {
-            fireButtonText.text = "Fire OFF";
-
-            fireButton.image.color =
-                new Color32(80, 80, 80, 255);
-        }
-
-        CheckCookingCondition();
-    }
-
-    // ==================================================
-    // Cooking
-    // ==================================================
 
     public void StartCooking()
     {
-        if (isCooking || cookingCompleted)
-        {
+        if (heatGameRunning || cookingCompleted)
             return;
-        }
 
         if (string.IsNullOrEmpty(selectedSauce))
         {
@@ -429,95 +299,187 @@ public class CookManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(selectedSpicy))
         {
-            statusText.text =
-                "Select spicy level first";
-
+            statusText.text = "Select spicy level first";
             return;
         }
 
-        if (waterLevel < MaxWaterLevel)
-        {
-            statusText.text = "Fill the water first";
-            return;
-        }
+        SaveRecipeToGameData();
 
-        if (!fireOn)
-        {
-            statusText.text = "Turn on the fire";
-            return;
-        }
+        SetSelectionButtonsInteractable(false);
 
-        StartCoroutine(CookingRoutine());
-    }
-
-    private IEnumerator CookingRoutine()
-    {
-        isCooking = true;
-
-        SetAllSelectionButtonsInteractable(false);
-
-        waterButton.interactable = false;
-        fireButton.interactable = false;
         startCookingButton.interactable = false;
+
+        heatGaugePanel.SetActive(true);
+
+        ResetHeatMarker();
+
+        fireButton.interactable = true;
+        fireButtonText.text = "STOP FIRE";
+
+        statusText.text = "Control the heat!";
+        potStatusText.text = "Heating...";
 
         cookingEffect.SetActive(true);
 
-        statusText.text = "Cooking...";
-        potStatusText.text = "Cooking Tteokbokki...";
+        heatGameRunning = true;
+    }
 
-        float elapsedTime = 0f;
+    private void ResetHeatMarker()
+    {
+        float halfHeight =
+            heatGauge.rect.height / 2f;
 
-        while (elapsedTime < cookingDuration)
+        float markerHalf =
+            heatMarker.rect.height / 2f;
+
+        float bottom =
+            -halfHeight + markerHalf;
+
+        Vector2 position =
+            heatMarker.anchoredPosition;
+
+        position.y = bottom;
+
+        heatMarker.anchoredPosition = position;
+
+        markerDirection = 1f;
+    }
+
+    private void MoveHeatMarker()
+    {
+        float halfHeight =
+            heatGauge.rect.height / 2f;
+
+        float markerHalf =
+            heatMarker.rect.height / 2f;
+
+        float bottom =
+            -halfHeight + markerHalf;
+
+        float top =
+            halfHeight - markerHalf;
+
+        Vector2 position =
+            heatMarker.anchoredPosition;
+
+        position.y +=
+            markerSpeed *
+            markerDirection *
+            Time.deltaTime;
+
+        if (position.y >= top)
         {
-            elapsedTime += Time.deltaTime;
-
-            cookingSlider.value =
-                elapsedTime / cookingDuration;
-
-            yield return null;
+            position.y = top;
+            markerDirection = -1f;
         }
+        else if (position.y <= bottom)
+        {
+            position.y = bottom;
+            markerDirection = 1f;
+        }
+
+        heatMarker.anchoredPosition = position;
+    }
+
+    public void StopFire()
+    {
+        if (!heatGameRunning)
+            return;
+
+        heatGameRunning = false;
+
+        fireButton.interactable = false;
+        fireButtonText.text = "Fire OFF";
+
+        cookingEffect.SetActive(false);
+
+        JudgeHeatResult();
+    }
+
+    private void JudgeHeatResult()
+    {
+        float gaugeHeight =
+            heatGauge.rect.height;
+
+        float halfHeight =
+            gaugeHeight / 2f;
+
+        float normalized =
+            (heatMarker.anchoredPosition.y + halfHeight)
+            / gaugeHeight;
+
+        float perfectHalf =
+            perfectZoneRatio / 2f;
+
+        float perfectMin =
+            0.5f - perfectHalf;
+
+        float perfectMax =
+            0.5f + perfectHalf;
+
+        if (normalized < perfectMin)
+        {
+            GameData.HeatResult = "Under";
+
+            statusText.text = "UNDER HEAT";
+            potStatusText.text = "Undercooked";
+        }
+        else if (normalized <= perfectMax)
+        {
+            GameData.HeatResult = "Perfect";
+
+            statusText.text = "PERFECT!";
+            potStatusText.text = "Perfectly Cooked";
+        }
+        else
+        {
+            GameData.HeatResult = "Over";
+
+            statusText.text = "OVER HEAT";
+            potStatusText.text = "Overcooked";
+        }
+
+        StartCoroutine(FinishCookingRoutine());
+    }
+
+    private IEnumerator FinishCookingRoutine()
+    {
+        yield return new WaitForSeconds(1f);
+
+        heatGaugePanel.SetActive(false);
 
         cookingSlider.value = 1f;
 
-        cookingEffect.SetActive(false);
-        fireEffect.SetActive(false);
-
-        fireOn = false;
-        fireButtonText.text = "Fire OFF";
-
-        isCooking = false;
         cookingCompleted = true;
-
-        statusText.text = "Cooking Complete";
-        potStatusText.text = GetFinalRecipeText();
 
         nextButton.gameObject.SetActive(true);
     }
 
-    // ==================================================
-    // Scene Change
-    // ==================================================
+    private void SaveRecipeToGameData()
+    {
+        GameData.SelectedSauce = selectedSauce;
+
+        GameData.HasFishCake = fishCakeSelected;
+        GameData.HasGreenOnion = greenOnionSelected;
+        GameData.HasCheese = cheeseSelected;
+
+        GameData.SelectedSpicy = selectedSpicy;
+    }
 
     public void GoToNextScene()
     {
         if (!cookingCompleted)
-        {
             return;
-        }
 
         SceneManager.LoadScene(nextSceneName);
     }
 
-    // ==================================================
-    // Condition and Status
-    // ==================================================
-
     private bool CannotChangeSelection()
     {
-        return isCooking || cookingCompleted;
+        return heatGameRunning || cookingCompleted;
     }
 
-    private void CheckCookingCondition()
+    private void CheckStartCondition()
     {
         bool sauceReady =
             !string.IsNullOrEmpty(selectedSauce);
@@ -525,17 +487,8 @@ public class CookManager : MonoBehaviour
         bool spicyReady =
             !string.IsNullOrEmpty(selectedSpicy);
 
-        bool waterReady =
-            waterLevel >= MaxWaterLevel;
-
-        bool fireReady =
-            fireOn;
-
         startCookingButton.interactable =
-            sauceReady
-            && spicyReady
-            && waterReady
-            && fireReady;
+            sauceReady && spicyReady;
     }
 
     private void UpdateStatus()
@@ -554,12 +507,13 @@ public class CookManager : MonoBehaviour
             sauceText + " / " + spicyText;
 
         potStatusText.text =
-            GetCurrentIngredientText();
+            GetIngredientText();
     }
 
-    private string GetCurrentIngredientText()
+    private string GetIngredientText()
     {
         string text = "Ingredients: ";
+
         bool hasIngredient = false;
 
         if (fishCakeSelected)
@@ -588,117 +542,47 @@ public class CookManager : MonoBehaviour
         return text;
     }
 
-    private string GetFinalRecipeText()
-    {
-        string result =
-            selectedSauce
-            + " / "
-            + selectedSpicy;
-
-        result +=
-            GameData.SelectedRiceCake == "Wheat"
-                ? " / Wheat Rice Cake"
-                : " / Rice Rice Cake";
-
-        if (fishCakeSelected)
-        {
-            result += " / Fish Cake";
-        }
-
-        if (greenOnionSelected)
-        {
-            result += " / Green Onion";
-        }
-
-        if (cheeseSelected)
-        {
-            result += " / Cheese";
-        }
-
-        return result;
-    }
-
-    // ==================================================
-    // Button Colors
-    // ==================================================
-
     private void SaveOriginalButtonColors()
     {
-        originalNormalColor =
-            originalButton.image.color;
+        originalNormalColor = originalButton.image.color;
+        creamNormalColor = creamButton.image.color;
+        jjajangNormalColor = jjajangButton.image.color;
 
-        creamNormalColor =
-            creamButton.image.color;
+        fishCakeNormalColor = fishCakeButton.image.color;
+        greenOnionNormalColor = greenOnionButton.image.color;
+        cheeseNormalColor = cheeseButton.image.color;
 
-        jjajangNormalColor =
-            jjajangButton.image.color;
-
-        fishCakeNormalColor =
-            fishCakeButton.image.color;
-
-        greenOnionNormalColor =
-            greenOnionButton.image.color;
-
-        cheeseNormalColor =
-            cheeseButton.image.color;
-
-        mildNormalColor =
-            mildButton.image.color;
-
-        mediumNormalColor =
-            mediumButton.image.color;
-
-        spicyNormalColor =
-            spicyButton.image.color;
+        mildNormalColor = mildButton.image.color;
+        mediumNormalColor = mediumButton.image.color;
+        spicyNormalColor = spicyButton.image.color;
     }
 
     private void RestoreAllButtonColors()
     {
         RestoreSauceButtonColors();
 
-        fishCakeButton.image.color =
-            fishCakeNormalColor;
-
-        greenOnionButton.image.color =
-            greenOnionNormalColor;
-
-        cheeseButton.image.color =
-            cheeseNormalColor;
+        fishCakeButton.image.color = fishCakeNormalColor;
+        greenOnionButton.image.color = greenOnionNormalColor;
+        cheeseButton.image.color = cheeseNormalColor;
 
         RestoreSpicyButtonColors();
     }
 
     private void RestoreSauceButtonColors()
     {
-        originalButton.image.color =
-            originalNormalColor;
-
-        creamButton.image.color =
-            creamNormalColor;
-
-        jjajangButton.image.color =
-            jjajangNormalColor;
+        originalButton.image.color = originalNormalColor;
+        creamButton.image.color = creamNormalColor;
+        jjajangButton.image.color = jjajangNormalColor;
     }
 
     private void RestoreSpicyButtonColors()
     {
-        mildButton.image.color =
-            mildNormalColor;
-
-        mediumButton.image.color =
-            mediumNormalColor;
-
-        spicyButton.image.color =
-            spicyNormalColor;
+        mildButton.image.color = mildNormalColor;
+        mediumButton.image.color = mediumNormalColor;
+        spicyButton.image.color = spicyNormalColor;
     }
 
-    // ==================================================
-    // Button Lock
-    // ==================================================
-
-    private void SetAllSelectionButtonsInteractable(
-        bool value
-    )
+    private void SetSelectionButtonsInteractable(bool value)
     {
         originalButton.interactable = value;
         creamButton.interactable = value;

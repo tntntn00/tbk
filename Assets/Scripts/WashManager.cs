@@ -32,7 +32,7 @@ public class WashManager : MonoBehaviour
         progressSlider.value = 0f;
         progressSlider.interactable = false;
 
-        statusText.text = "Select rice cake type";
+        statusText.text = "떡 종류를 선택하세요!";
 
         washButton.interactable = false;
         nextButton.gameObject.SetActive(false);
@@ -56,7 +56,7 @@ public class WashManager : MonoBehaviour
             new Color32(228, 210, 165, 255);
 
         statusText.text =
-            "Wheat rice cake selected";
+            "밀떡이 선택됨";
 
         wheatButton.interactable = false;
         riceButton.interactable = true;
@@ -77,7 +77,7 @@ public class WashManager : MonoBehaviour
             new Color32(248, 243, 230, 255);
 
         statusText.text =
-            "Rice rice cake selected";
+            "쌀떡이 선택됨";
 
         wheatButton.interactable = true;
         riceButton.interactable = false;
@@ -111,7 +111,7 @@ public class WashManager : MonoBehaviour
         washButton.interactable = false;
 
         waterEffect.SetActive(true);
-        statusText.text = "Washing...";
+        statusText.text = "헹구는 중...";
 
         float elapsedTime = 0f;
 
@@ -132,7 +132,7 @@ public class WashManager : MonoBehaviour
         isWashing = false;
         washCompleted = true;
 
-        statusText.text = "Washing Complete";
+        statusText.text = "헹구기 완료";
         nextButton.gameObject.SetActive(true);
     }
 

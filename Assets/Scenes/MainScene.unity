@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 47689720}
   - component: {fileID: 47689719}
   - component: {fileID: 47689718}
+  - component: {fileID: 47689721}
   m_Layer: 5
   m_Name: ConfirmButton
   m_TagString: Untagged
@@ -155,7 +156,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -162}
-  m_SizeDelta: {x: 300, y: 150}
+  m_SizeDelta: {x: 280, y: 111}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &47689718
 MonoBehaviour:
@@ -234,7 +235,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 6456623921590334946, guid: 2e2e482e50f170b43a91de97efe31fb0, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -242,7 +243,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 9
 --- !u!222 &47689720
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -251,6 +252,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47689716}
   m_CullTransparentMesh: 1
+--- !u!114 &47689721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47689716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.8117647, g: 0.05882353, b: 0.05882353, a: 0.50980395}
+  m_EffectDistance: {x: 14, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &77034160
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,8 +470,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 3189912354
+  m_fontColor: {r: 0.13333334, g: 0.2, b: 0.13333334, a: 0.74509805}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -559,8 +575,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -115}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: -50}
+  m_SizeDelta: {x: 2000, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &361601519
 MonoBehaviour:
@@ -863,8 +879,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284966759
-  m_fontColor: {r: 0.40251565, g: 0.40251565, b: 0.40251565, a: 1}
+    rgba: 4290014953
+  m_fontColor: {r: 0.9137255, g: 0.43137255, b: 0.7058824, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -881,8 +897,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
-  m_fontSizeBase: 55
+  m_fontSize: 75
+  m_fontSizeBase: 75
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -950,7 +966,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -114.29003}
+  m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &608350101
@@ -1005,14 +1021,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8784314, b: 0.7647059, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -5549788827934586771, guid: 1ede0ca7f84068f4ab1ed8a6c151ac65, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1374,14 +1390,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.87796706, b: 0.76415086, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 2021941861911201760, guid: 477d93304cb1b9241815e0842ca74951, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1411,6 +1427,7 @@ GameObject:
   - component: {fileID: 1223448570}
   - component: {fileID: 1223448569}
   - component: {fileID: 1223448568}
+  - component: {fileID: 1223448571}
   m_Layer: 5
   m_Name: NameInputField (TMP)
   m_TagString: Untagged
@@ -1577,6 +1594,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223448566}
   m_CullTransparentMesh: 1
+--- !u!114 &1223448571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223448566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.8117647, g: 0.05882353, b: 0.05882353, a: 0.50980395}
+  m_EffectDistance: {x: 14, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1241460933
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,6 +1621,7 @@ GameObject:
   - component: {fileID: 1241460937}
   - component: {fileID: 1241460936}
   - component: {fileID: 1241460935}
+  - component: {fileID: 1241460938}
   m_Layer: 5
   m_Name: TbkButton
   m_TagString: Untagged
@@ -1613,7 +1646,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -254}
+  m_AnchoredPosition: {x: 300, y: -160}
   m_SizeDelta: {x: 200, y: 66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1241460935
@@ -1698,6 +1731,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241460933}
   m_CullTransparentMesh: 1
+--- !u!114 &1241460938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241460933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.8113208, g: 0.058680363, b: 0.058680363, a: 0.50980395}
+  m_EffectDistance: {x: 7, y: -7}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1259537157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1809,6 +1857,7 @@ GameObject:
   - component: {fileID: 1268673619}
   - component: {fileID: 1268673618}
   - component: {fileID: 1268673617}
+  - component: {fileID: 1268673620}
   m_Layer: 5
   m_Name: CookingButton
   m_TagString: Untagged
@@ -1833,7 +1882,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: -254}
+  m_AnchoredPosition: {x: -300, y: -160}
   m_SizeDelta: {x: 200, y: 66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1268673617
@@ -1930,6 +1979,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268673615}
   m_CullTransparentMesh: 1
+--- !u!114 &1268673620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268673615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.8113208, g: 0.058680363, b: 0.058680363, a: 0.50980395}
+  m_EffectDistance: {x: 7, y: -7}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1271975588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,6 +2057,7 @@ GameObject:
   - component: {fileID: 1352111983}
   - component: {fileID: 1352111985}
   - component: {fileID: 1352111984}
+  - component: {fileID: 1352111986}
   m_Layer: 5
   m_Name: TbkImage
   m_TagString: Untagged
@@ -2016,7 +2081,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -14.000015}
+  m_AnchoredPosition: {x: 300, y: 88}
   m_SizeDelta: {x: 190, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1352111984
@@ -2057,6 +2122,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352111982}
   m_CullTransparentMesh: 1
+--- !u!114 &1352111986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352111982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.8113208, g: 0.058680363, b: 0.058680363, a: 0.50980395}
+  m_EffectDistance: {x: 10, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1388592758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2220,6 +2300,7 @@ GameObject:
   - component: {fileID: 1831007860}
   - component: {fileID: 1831007862}
   - component: {fileID: 1831007861}
+  - component: {fileID: 1831007863}
   m_Layer: 5
   m_Name: Tteokbokki
   m_TagString: Untagged
@@ -2243,7 +2324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: -14.000015}
+  m_AnchoredPosition: {x: -300, y: 88}
   m_SizeDelta: {x: 222, y: 222}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1831007861
@@ -2284,6 +2365,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831007859}
   m_CullTransparentMesh: 1
+--- !u!114 &1831007863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831007859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.8113208, g: 0.058680363, b: 0.058680363, a: 0.50980395}
+  m_EffectDistance: {x: 10, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1875521433
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,6 +2391,7 @@ GameObject:
   - component: {fileID: 1875521434}
   - component: {fileID: 1875521436}
   - component: {fileID: 1875521435}
+  - component: {fileID: 1875521437}
   m_Layer: 5
   m_Name: LogoImage
   m_TagString: Untagged
@@ -2359,6 +2456,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875521433}
   m_CullTransparentMesh: 1
+--- !u!114 &1875521437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875521433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.8113208, g: 0.058680363, b: 0.058680363, a: 0.50980395}
+  m_EffectDistance: {x: 14, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2028652016
 GameObject:
   m_ObjectHideFlags: 0
