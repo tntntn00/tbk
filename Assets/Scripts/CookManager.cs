@@ -150,7 +150,7 @@ public class CookManager : MonoBehaviour
         selectedSauce = "Original";
 
         sauceImage.color =
-            new Color32(230, 55, 45, 255);
+            new Color32(230, 55, 45, 190);
 
         RestoreSauceButtonColors();
         originalButton.image.color = selectedHighlightColor;
@@ -167,7 +167,7 @@ public class CookManager : MonoBehaviour
         selectedSauce = "Cream";
 
         sauceImage.color =
-            new Color32(255, 190, 110, 255);
+            new Color32(255, 190, 110, 190);
 
         RestoreSauceButtonColors();
         creamButton.image.color = selectedHighlightColor;
@@ -184,7 +184,7 @@ public class CookManager : MonoBehaviour
         selectedSauce = "Jjajang";
 
         sauceImage.color =
-            new Color32(125, 75, 45, 255);
+            new Color32(125, 75, 45, 222);
 
         RestoreSauceButtonColors();
         jjajangButton.image.color = selectedHighlightColor;

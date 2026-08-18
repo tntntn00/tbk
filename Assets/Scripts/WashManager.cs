@@ -21,6 +21,14 @@ public class WashManager : MonoBehaviour
     [Header("Washing Settings")]
     [SerializeField] private float washDuration = 3f;
 
+    [Header("RiceCake Images")]
+    [SerializeField] private Sprite wheatimage;
+    [SerializeField] private Sprite riceimage;
+
+    [Header("RiceCake Sizes")]
+    [SerializeField] private Vector2 wheatSize = new Vector2(200, 200);
+    [SerializeField] private Vector2 riceSize = new Vector2(200, 200);
+
     private string selectedRiceCake = "";
     private bool isWashing;
     private bool washCompleted;
@@ -37,9 +45,10 @@ public class WashManager : MonoBehaviour
         washButton.interactable = false;
         nextButton.gameObject.SetActive(false);
         waterEffect.SetActive(false);
+        riceCakeImage.enabled = false;
 
-        riceCakeImage.color =
-            new Color32(220, 220, 220, 255);
+        //riceCakeImage.color =
+            //new Color32(220, 220, 220, 255);
     }
 
     public void SelectWheatRiceCake()
@@ -52,8 +61,12 @@ public class WashManager : MonoBehaviour
         selectedRiceCake = "Wheat";
         GameData.SelectedRiceCake = "Wheat";
 
-        riceCakeImage.color =
-            new Color32(228, 210, 165, 255);
+        riceCakeImage.sprite = wheatimage;
+        riceCakeImage.enabled = true;
+        riceCakeImage.rectTransform.sizeDelta = wheatSize;
+
+        //riceCakeImage.color =
+            //new Color32(228, 210, 165, 255);
 
         statusText.text =
             "밀떡이 선택됨";
@@ -73,8 +86,12 @@ public class WashManager : MonoBehaviour
         selectedRiceCake = "Rice";
         GameData.SelectedRiceCake = "Rice";
 
-        riceCakeImage.color =
-            new Color32(248, 243, 230, 255);
+        riceCakeImage.sprite = riceimage;
+        riceCakeImage.enabled = true;
+        riceCakeImage.rectTransform.sizeDelta = riceSize;
+
+        //riceCakeImage.color =
+            //new Color32(248, 243, 230, 255);
 
         statusText.text =
             "쌀떡이 선택됨";
@@ -132,7 +149,7 @@ public class WashManager : MonoBehaviour
         isWashing = false;
         washCompleted = true;
 
-        statusText.text = "헹구기 완료";
+        statusText.text = "헹구기 완료!";
         nextButton.gameObject.SetActive(true);
     }
 
