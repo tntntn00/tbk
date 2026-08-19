@@ -21,14 +21,6 @@ public class WashManager : MonoBehaviour
     [Header("Washing Settings")]
     [SerializeField] private float washDuration = 3f;
 
-    [Header("RiceCake Images")]
-    [SerializeField] private Sprite wheatimage;
-    [SerializeField] private Sprite riceimage;
-
-    [Header("RiceCake Sizes")]
-    [SerializeField] private Vector2 wheatSize = new Vector2(200, 200);
-    [SerializeField] private Vector2 riceSize = new Vector2(200, 200);
-
     private string selectedRiceCake = "";
     private bool isWashing;
     private bool washCompleted;
@@ -41,35 +33,22 @@ public class WashManager : MonoBehaviour
         progressSlider.interactable = false;
 
         statusText.text = "떡 종류를 선택하세요!";
-
         washButton.interactable = false;
         nextButton.gameObject.SetActive(false);
         waterEffect.SetActive(false);
-        riceCakeImage.enabled = false;
 
-        //riceCakeImage.color =
-            //new Color32(220, 220, 220, 255);
+        riceCakeImage.color = new Color32(220, 220, 220, 255);
     }
 
     public void SelectWheatRiceCake()
     {
-        if (isWashing || washCompleted)
-        {
-            return;
-        }
+        if (isWashing || washCompleted) return;
 
         selectedRiceCake = "Wheat";
         GameData.SelectedRiceCake = "Wheat";
 
-        riceCakeImage.sprite = wheatimage;
-        riceCakeImage.enabled = true;
-        riceCakeImage.rectTransform.sizeDelta = wheatSize;
-
-        //riceCakeImage.color =
-            //new Color32(228, 210, 165, 255);
-
-        statusText.text =
-            "밀떡이 선택됨";
+        riceCakeImage.color = new Color32(228, 210, 165, 255);
+        statusText.text = "밀떡이 선택됨";
 
         wheatButton.interactable = false;
         riceButton.interactable = true;
@@ -78,23 +57,13 @@ public class WashManager : MonoBehaviour
 
     public void SelectRiceRiceCake()
     {
-        if (isWashing || washCompleted)
-        {
-            return;
-        }
+        if (isWashing || washCompleted) return;
 
         selectedRiceCake = "Rice";
         GameData.SelectedRiceCake = "Rice";
 
-        riceCakeImage.sprite = riceimage;
-        riceCakeImage.enabled = true;
-        riceCakeImage.rectTransform.sizeDelta = riceSize;
-
-        //riceCakeImage.color =
-            //new Color32(248, 243, 230, 255);
-
-        statusText.text =
-            "쌀떡이 선택됨";
+        riceCakeImage.color = new Color32(248, 243, 230, 255);
+        statusText.text = "쌀떡이 선택됨";
 
         wheatButton.interactable = true;
         riceButton.interactable = false;
@@ -103,16 +72,11 @@ public class WashManager : MonoBehaviour
 
     public void StartWashing()
     {
-        if (isWashing || washCompleted)
-        {
-            return;
-        }
+        if (isWashing || washCompleted) return;
 
         if (string.IsNullOrEmpty(selectedRiceCake))
         {
-            statusText.text =
-                "Select rice cake first";
-
+            statusText.text = "Select rice cake first";
             return;
         }
 
@@ -131,35 +95,25 @@ public class WashManager : MonoBehaviour
         statusText.text = "헹구는 중...";
 
         float elapsedTime = 0f;
-
         while (elapsedTime < washDuration)
         {
             elapsedTime += Time.deltaTime;
-
-            progressSlider.value =
-                elapsedTime / washDuration;
-
+            progressSlider.value = elapsedTime / washDuration;
             yield return null;
         }
 
         progressSlider.value = 1f;
-
         waterEffect.SetActive(false);
 
         isWashing = false;
         washCompleted = true;
-
-        statusText.text = "헹구기 완료!";
+        statusText.text = "헹구기 완료";
         nextButton.gameObject.SetActive(true);
     }
 
     public void GoToCookScene()
     {
-        if (!washCompleted)
-        {
-            return;
-        }
-
+        if (!washCompleted) return;
         SceneManager.LoadScene("CookScene");
     }
 }

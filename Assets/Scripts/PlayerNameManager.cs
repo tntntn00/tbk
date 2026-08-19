@@ -1,9 +1,11 @@
 using TMPro;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerNameManager : MonoBehaviour
 {
+    public static string PlayerName { get; private set; } = "";
+
     [Header("Panels")]
     [SerializeField] private GameObject nameInputPanel;
     [SerializeField] private GameObject mainPanel;
@@ -15,10 +17,20 @@ public class PlayerNameManager : MonoBehaviour
 
     private void Start()
     {
-        // 시작할 때 입력 화면만 표시
+        // 이미 이름을 입력한 적이 있으면 바로 메인 허브 표시
+        if (!string.IsNullOrEmpty(PlayerName))
+        {
+            nameInputPanel.SetActive(false);
+            mainPanel.SetActive(true);
+            logoImage.enabled = false;
+            shopNameText.text = PlayerName + "의 떡볶이";
+            return;
+        }
+
+        // 최초 실행일 때만 이름 입력창 표시
         nameInputPanel.SetActive(true);
         mainPanel.SetActive(false);
-        logoImage.enabled=true;
+        logoImage.enabled = true;
 
         inputField.text = "";
         inputField.Select();
@@ -32,22 +44,18 @@ public class PlayerNameManager : MonoBehaviour
         if (string.IsNullOrEmpty(playerName))
         {
             Debug.LogWarning("이름을 입력하세요.");
-
             inputField.Select();
             inputField.ActivateInputField();
             return;
         }
 
-        // 가게 이름 변경
-        shopNameText.text = playerName + "의 떡볶이 가게";
+        PlayerName = playerName;
+        shopNameText.text = PlayerName + "의 떡볶이";
 
-        // 메인 화면부터 켜기
         mainPanel.SetActive(true);
-        logoImage.enabled=false;
-
-        // 입력창, Confirm 버튼, 흐릿한 배경을 포함한 패널 전체 끄기
+        logoImage.enabled = false;
         nameInputPanel.SetActive(false);
 
-        Debug.Log("NameInputPanel 비활성화 완료");
+        Debug.Log("가게 이름 저장: " + PlayerName + "의 떡볶이");
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PackageManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class PackageManager : MonoBehaviour
     [SerializeField] private Button eggButton;
 
     [Header("Delivery")]
-    [SerializeField] private GameObject deliveryHand;
+    [SerializeField] private DeliveryHandPopup deliveryHandPopup;
     [SerializeField] private Button deliveryButton;
 
     [Header("UI")]
@@ -66,6 +67,7 @@ public class PackageManager : MonoBehaviour
 
         packageBoxButton.interactable = false;
         plasticBagButton.interactable = false;
+        deliveryButton.gameObject.SetActive(true);
         deliveryButton.interactable = false;
 
         cookedFoodButton.image.raycastTarget = true;
@@ -74,8 +76,6 @@ public class PackageManager : MonoBehaviour
 
         packageBoxButton.image.raycastTarget = true;
         plasticBagButton.image.raycastTarget = true;
-
-        deliveryHand.SetActive(false);
 
         statusText.text =
             "Put the food into the container";
@@ -244,11 +244,13 @@ public class PackageManager : MonoBehaviour
         if (itemName == "Colpis")
         {
             colpisPacked = true;
+            GameData.HasColpis = true;
         }
 
         if (itemName == "Steamed Egg")
         {
             eggPacked = true;
+            GameData.HasSteamedEgg = true;
         }
 
         isMoving = false;
@@ -395,6 +397,8 @@ public class PackageManager : MonoBehaviour
 
         readyForDelivery = true;
 
+        // 배달 버튼을 확실하게 활성화
+        deliveryButton.gameObject.SetActive(true);
         deliveryButton.interactable = true;
 
         statusText.text =
@@ -403,7 +407,7 @@ public class PackageManager : MonoBehaviour
 
     public void RequestDelivery()
     {
-        if (!readyForDelivery)
+        if (!readyForDelivery || isMoving)
             return;
 
         deliveryButton.interactable = false;
@@ -415,13 +419,20 @@ public class PackageManager : MonoBehaviour
 
     private IEnumerator DeliveryRoutine()
     {
+        isMoving = true;
+
         statusText.text =
             "Delivery rider is coming...";
 
-        deliveryHand.SetActive(true);
+        // 1. 손이 오른쪽에서 들어온다.
+        yield return StartCoroutine(
+            deliveryHandPopup.ShowHand()
+        );
 
-        yield return new WaitForSeconds(0.8f);
+        // 2. 잠깐 멈춰서 음식을 집는 느낌
+        yield return new WaitForSeconds(0.5f);
 
+        // 3. 포장된 음식들을 화면에서 없앤다.
         cookedFoodButton.gameObject.SetActive(false);
         packageBoxButton.gameObject.SetActive(false);
         plasticBagButton.gameObject.SetActive(false);
@@ -436,9 +447,27 @@ public class PackageManager : MonoBehaviour
             eggButton.gameObject.SetActive(false);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        // 4. 손이 다시 오른쪽 밖으로 나간다.
+        yield return StartCoroutine(
+            deliveryHandPopup.HideHand()
+        );
 
+        // 5. 배달 완료
         statusText.text =
             "Delivery Complete!";
-    }
+
+        isMoving = false;
+
+        // 완료 문구를 잠깐 보여준다.
+        yield return new WaitForSeconds(1.2f);
+
+        // 메인 허브로 복귀
+        SceneManager.LoadScene("MainScene");
+
+        // 완료 메시지를 잠깐 보여준다.
+        yield return new WaitForSeconds(1f);
+
+        // 리뷰 화면으로 이동
+        SceneManager.LoadScene("ReviewScene");
+            }
 }
