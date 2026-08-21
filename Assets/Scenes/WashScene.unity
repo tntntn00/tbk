@@ -2475,8 +2475,8 @@ MonoBehaviour:
   washDuration: 3
   wheatimage: {fileID: -7260008216411968409, guid: 7126ac0fbab72d94895b92135d42a3e8, type: 3}
   riceimage: {fileID: -4145252194607634640, guid: e929331438360ae4ebc6f32847f7fab1, type: 3}
-  wheatSize: {x: 400, y: 230}
-  riceSize: {x: 600, y: 200}
+  wheatSize: {x: 400, y: 222}
+  riceSize: {x: 450, y: 222}
 --- !u!4 &1683417530
 Transform:
   m_ObjectHideFlags: 0

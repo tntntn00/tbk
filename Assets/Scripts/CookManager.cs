@@ -55,6 +55,10 @@ public class CookManager : MonoBehaviour
     [Header("Scene")]
     [SerializeField] private string nextSceneName = "PackageScene";
 
+    [Header("RiceCake Images")]
+    [SerializeField] private Sprite wheatimage;
+    [SerializeField] private Sprite riceimage;
+
     private string selectedSauce = "";
     private string selectedSpicy = "";
 
@@ -90,6 +94,7 @@ public class CookManager : MonoBehaviour
         cookingSlider.maxValue = 1f;
         cookingSlider.value = 0f;
         cookingSlider.interactable = false;
+        riceCakeImage.enabled = false;
 
         statusText.text = "Select sauce and spicy level";
         potStatusText.text = "Select sauce and ingredients";
@@ -127,13 +132,17 @@ public class CookManager : MonoBehaviour
     {
         if (GameData.SelectedRiceCake == "Wheat")
         {
-            riceCakeImage.color =
-                new Color32(228, 210, 165, 255);
+            //riceCakeImage.color =
+                //new Color32(228, 210, 165, 255);
+            riceCakeImage.sprite = wheatimage;
+            riceCakeImage.enabled = true;
         }
         else if (GameData.SelectedRiceCake == "Rice")
         {
-            riceCakeImage.color =
-                new Color32(248, 243, 230, 255);
+            //riceCakeImage.color =
+                //new Color32(248, 243, 230, 255);
+            riceCakeImage.sprite = riceimage;
+            riceCakeImage.enabled = true;
         }
         else
         {
