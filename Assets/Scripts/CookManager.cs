@@ -45,6 +45,7 @@ public class CookManager : MonoBehaviour
 
     [SerializeField] private Button fireButton;
     [SerializeField] private TMP_Text fireButtonText;
+    [SerializeField] private GameObject fireEffect;
 
     [Header("Heat Settings")]
     [SerializeField] private float markerSpeed = 280f;
@@ -54,6 +55,9 @@ public class CookManager : MonoBehaviour
 
     [Header("Scene")]
     [SerializeField] private string nextSceneName = "PackageScene";
+
+    [Header("Washing Settings")]
+    [SerializeField] private float washDuration = 3f;
 
     [Header("RiceCake Images")]
     [SerializeField] private Sprite wheatimage;
@@ -86,6 +90,9 @@ public class CookManager : MonoBehaviour
     private readonly Color selectedHighlightColor =
         new Color32(210, 255, 210, 255);
 
+    private readonly Color selectedpepperHighlightColor =
+    new Color32(210, 255, 210, 200);
+
     private void Start()
     {
         SaveOriginalButtonColors();
@@ -96,7 +103,7 @@ public class CookManager : MonoBehaviour
         cookingSlider.interactable = false;
         riceCakeImage.enabled = false;
 
-        statusText.text = "Select sauce and spicy level";
+        statusText.text = "소스/재료/맵기를 선택하세요.";
         potStatusText.text = "Select sauce and ingredients";
 
         startCookingButton.interactable = false;
@@ -109,7 +116,8 @@ public class CookManager : MonoBehaviour
         greenOnionImage.SetActive(false);
         cheeseImage.SetActive(false);
 
-        cookingEffect.SetActive(false);
+        //cookingEffect.SetActive(false);
+        fireEffect.SetActive(false);
         heatGaugePanel.SetActive(false);
 
         sauceImage.color =
@@ -261,7 +269,7 @@ public class CookManager : MonoBehaviour
         selectedSpicy = "Mild";
 
         RestoreSpicyButtonColors();
-        mildButton.image.color = selectedHighlightColor;
+        mildButton.image.color = selectedpepperHighlightColor;
 
         UpdateStatus();
         CheckStartCondition();
@@ -275,7 +283,7 @@ public class CookManager : MonoBehaviour
         selectedSpicy = "Medium";
 
         RestoreSpicyButtonColors();
-        mediumButton.image.color = selectedHighlightColor;
+        mediumButton.image.color = selectedpepperHighlightColor;
 
         UpdateStatus();
         CheckStartCondition();
@@ -289,7 +297,7 @@ public class CookManager : MonoBehaviour
         selectedSpicy = "Spicy";
 
         RestoreSpicyButtonColors();
-        spicyButton.image.color = selectedHighlightColor;
+        spicyButton.image.color = selectedpepperHighlightColor;
 
         UpdateStatus();
         CheckStartCondition();
@@ -302,13 +310,13 @@ public class CookManager : MonoBehaviour
 
         if (string.IsNullOrEmpty(selectedSauce))
         {
-            statusText.text = "Select sauce first";
+            statusText.text = "소스를 선택하세요";
             return;
         }
 
         if (string.IsNullOrEmpty(selectedSpicy))
         {
-            statusText.text = "Select spicy level first";
+            statusText.text = "맵기를 선택하세요";
             return;
         }
 
@@ -325,10 +333,10 @@ public class CookManager : MonoBehaviour
         fireButton.interactable = true;
         fireButtonText.text = "STOP FIRE";
 
-        statusText.text = "Control the heat!";
+        statusText.text = "불의 세기를 조절하세요.";
         potStatusText.text = "Heating...";
 
-        cookingEffect.SetActive(true);
+        //cookingEffect.SetActive(true);
 
         heatGameRunning = true;
     }
@@ -400,7 +408,7 @@ public class CookManager : MonoBehaviour
         fireButton.interactable = false;
         fireButtonText.text = "Fire OFF";
 
-        cookingEffect.SetActive(false);
+        //cookingEffect.SetActive(false);
 
         JudgeHeatResult();
     }
@@ -430,21 +438,21 @@ public class CookManager : MonoBehaviour
         {
             GameData.HeatResult = "Under";
 
-            statusText.text = "UNDER HEAT";
+            statusText.text = "불 세기가 약해요";
             potStatusText.text = "Undercooked";
         }
         else if (normalized <= perfectMax)
         {
             GameData.HeatResult = "Perfect";
 
-            statusText.text = "PERFECT!";
+            statusText.text = "불 세기가 적당해요!";
             potStatusText.text = "Perfectly Cooked";
         }
         else
         {
             GameData.HeatResult = "Over";
 
-            statusText.text = "OVER HEAT";
+            statusText.text = "불 세기가 강해요";
             potStatusText.text = "Overcooked";
         }
 
@@ -452,16 +460,34 @@ public class CookManager : MonoBehaviour
     }
 
     private IEnumerator FinishCookingRoutine()
-    {
+    {   
+        fireEffect.SetActive(true);
         yield return new WaitForSeconds(1f);
 
         heatGaugePanel.SetActive(false);
 
+        statusText.text = "떡볶이를 익히는 중...";
+
+        //cookingSlider.value = 1f;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < washDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            cookingSlider.value = elapsedTime / washDuration;
+            yield return null;
+        }
+
         cookingSlider.value = 1f;
+
+        fireEffect.SetActive(false);
 
         cookingCompleted = true;
 
-        nextButton.gameObject.SetActive(true);
+        statusText.text = "떡볶이 완성!";
+
+        nextButton.gameObject.SetActive(true); 
+
     }
 
     private void SaveRecipeToGameData()
@@ -512,8 +538,8 @@ public class CookManager : MonoBehaviour
                 ? "No Spicy Level"
                 : selectedSpicy;
 
-        statusText.text =
-            sauceText + " / " + spicyText;
+        //statusText.text =
+            //sauceText + " / " + spicyText;
 
         potStatusText.text =
             GetIngredientText();
