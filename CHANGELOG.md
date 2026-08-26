@@ -1,1 +1,2 @@
-0825 쿡씬: status text변경, fire effect추가, cookingeffect삭제, 슬라이더바 활성화, 맵기단계만하이라이트색상바꿈, ui여러개변경
+0826:
+패키지씬 - status text 조건에맞춰서 변경, 포장용기들 위치, 넥스트버튼

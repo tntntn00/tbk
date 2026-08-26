@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class PackageManager : MonoBehaviour
 {
     [Header("Main Package Buttons")]
-    [SerializeField] private Button cookedFoodButton;
+    [SerializeField] private Button TbkButton;
     [SerializeField] private Button packageBoxButton;
     [SerializeField] private Button plasticBagButton;
 
@@ -25,7 +25,7 @@ public class PackageManager : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float moveDuration = 0.4f;
     [SerializeField] private float foodInBoxScale = 0.55f;
-    [SerializeField] private float sideMenuInBoxScale = 0.45f;
+    [SerializeField] private float sideMenuInBoxScale = 0.7f;
     [SerializeField] private float boxInBagScale = 0.75f;
 
     private RectTransform foodRect;
@@ -47,7 +47,7 @@ public class PackageManager : MonoBehaviour
     private void Start()
     {
         foodRect =
-            cookedFoodButton.GetComponent<RectTransform>();
+            TbkButton.GetComponent<RectTransform>();
 
         boxRect =
             packageBoxButton.GetComponent<RectTransform>();
@@ -61,7 +61,7 @@ public class PackageManager : MonoBehaviour
         eggRect =
             eggButton.GetComponent<RectTransform>();
 
-        cookedFoodButton.interactable = true;
+        TbkButton.interactable = true;
         colpisButton.interactable = true;
         eggButton.interactable = true;
 
@@ -70,7 +70,7 @@ public class PackageManager : MonoBehaviour
         deliveryButton.gameObject.SetActive(true);
         deliveryButton.interactable = false;
 
-        cookedFoodButton.image.raycastTarget = true;
+        TbkButton.image.raycastTarget = true;
         colpisButton.image.raycastTarget = true;
         eggButton.image.raycastTarget = true;
 
@@ -78,7 +78,7 @@ public class PackageManager : MonoBehaviour
         plasticBagButton.image.raycastTarget = true;
 
         statusText.text =
-            "Put the food into the container";
+            "음식을 포장 용기에 넣으세요";
     }
 
     public void PutFoodIntoContainer()
@@ -95,10 +95,10 @@ public class PackageManager : MonoBehaviour
     {
         isMoving = true;
 
-        cookedFoodButton.interactable = false;
+        TbkButton.interactable = false;
 
         statusText.text =
-            "Packing the food...";
+            "포장 중...";
 
         Vector2 startPosition =
             foodRect.position;
@@ -147,12 +147,19 @@ public class PackageManager : MonoBehaviour
         foodPacked = true;
         isMoving = false;
 
-        cookedFoodButton.image.raycastTarget = false;
+        TbkButton.image.raycastTarget = false;
 
         packageBoxButton.interactable = true;
 
-        statusText.text =
-            "Add side dishes or pack the container";
+        if (eggPacked && colpisPacked){
+            statusText.text = "비닐에 옮겨 포장하세요";
+        }
+        else
+        {
+           statusText.text =
+            "사이드 메뉴를 포장하세요"; 
+        }
+        
     }
 
     public void PutColpisIntoContainer()
@@ -164,7 +171,7 @@ public class PackageManager : MonoBehaviour
             MoveSideMenuRoutine(
                 colpisButton,
                 colpisRect,
-                "Colpis"
+                "쿨피스"
             )
         );
     }
@@ -178,7 +185,7 @@ public class PackageManager : MonoBehaviour
             MoveSideMenuRoutine(
                 eggButton,
                 eggRect,
-                "Steamed Egg"
+                "계란찜"
             )
         );
     }
@@ -193,7 +200,7 @@ public class PackageManager : MonoBehaviour
         sideButton.interactable = false;
 
         statusText.text =
-            "Adding " + itemName + "...";
+            itemName + " 추가중...";
 
         Vector2 startPosition =
             sideRect.position;
@@ -241,13 +248,13 @@ public class PackageManager : MonoBehaviour
 
         sideButton.image.raycastTarget = false;
 
-        if (itemName == "Colpis")
+        if (itemName == "쿨피스")
         {
             colpisPacked = true;
             GameData.HasColpis = true;
         }
 
-        if (itemName == "Steamed Egg")
+        if (itemName == "계란찜")
         {
             eggPacked = true;
             GameData.HasSteamedEgg = true;
@@ -255,8 +262,20 @@ public class PackageManager : MonoBehaviour
 
         isMoving = false;
 
-        statusText.text =
-            "Add side dishes or pack the container";
+        if (eggPacked && colpisPacked && foodPacked)
+        {
+            statusText.text =
+            "비닐에 옮겨 포장하세요";
+        }
+        else if (eggPacked && colpisPacked)
+        {
+            statusText.text="떡볶이를 포장하세요";
+        }
+        else
+        {
+            statusText.text="사이드 메뉴를 포장하세요";
+        }
+        
     }
 
     public void PutContainerIntoBag()
@@ -282,7 +301,7 @@ public class PackageManager : MonoBehaviour
         eggButton.interactable = false;
 
         statusText.text =
-            "Putting everything into the bag...";
+            "비닐에 옮겨 포장하세요";
 
         Vector2 targetPosition =
             bagRect.position;
@@ -402,7 +421,7 @@ public class PackageManager : MonoBehaviour
         deliveryButton.interactable = true;
 
         statusText.text =
-            "Ready for delivery";
+            "포장을 전부 마쳤습니다";
     }
 
     public void RequestDelivery()
@@ -422,7 +441,7 @@ public class PackageManager : MonoBehaviour
         isMoving = true;
 
         statusText.text =
-            "Delivery rider is coming...";
+            "배달 기사 이동 중...";
 
         // 1. 손이 오른쪽에서 들어온다.
         yield return StartCoroutine(
@@ -433,7 +452,7 @@ public class PackageManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // 3. 포장된 음식들을 화면에서 없앤다.
-        cookedFoodButton.gameObject.SetActive(false);
+        TbkButton.gameObject.SetActive(false);
         packageBoxButton.gameObject.SetActive(false);
         plasticBagButton.gameObject.SetActive(false);
 
@@ -454,7 +473,7 @@ public class PackageManager : MonoBehaviour
 
         // 5. 배달 완료
         statusText.text =
-            "Delivery Complete!";
+            "배달 완료!";
 
         isMoving = false;
 
