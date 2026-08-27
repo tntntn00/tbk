@@ -48,19 +48,23 @@
     <Analyzer Include="D:\unity\6000.4.6f1\Editor\Data\Tools\BuildPipeline\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ReviewEvaluator.cs" />
+    <Compile Include="Assets\Scripts\BillItemUI.cs" />
+    <Compile Include="Assets\Scripts\Riview\ReviewItemUI.cs" />
+    <Compile Include="Assets\Scripts\Riview\RiviewHistory.cs" />
+    <Compile Include="Assets\Scripts\Riview\ReviewEvaluator.cs" />
+    <Compile Include="Assets\Scripts\Manager\OrderManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\CookManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\PlayerNameManager.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneChanger.cs" />
-    <Compile Include="Assets\Scripts\ReviewManager.cs" />
     <Compile Include="Assets\Scripts\OrderData.cs" />
+    <Compile Include="Assets\Scripts\BillData.cs" />
+    <Compile Include="Assets\Scripts\Manager\PackageManager.cs" />
     <Compile Include="Assets\Scripts\MainSceneController.cs" />
-    <Compile Include="Assets\Scripts\WashManager.cs" />
-    <Compile Include="Assets\Scripts\PackageManager.cs" />
-    <Compile Include="Assets\Scripts\ReviewItemUI.cs" />
-    <Compile Include="Assets\Scripts\PlayerNameManager.cs" />
     <Compile Include="Assets\Scripts\Animation\LogoDropAnimation.cs" />
     <Compile Include="Assets\Scripts\DelieveryHandPopup.cs" />
+    <Compile Include="Assets\Scripts\Manager\WashManager.cs" />
     <Compile Include="Assets\Scripts\Scene\GameData.cs" />
-    <Compile Include="Assets\Scripts\CookManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\ReviewManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

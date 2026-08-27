@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ReviewEvaluator : MonoBehaviour
 {
-    public ReviewResult Evaluate()
+    public ReviewResult Evaluate(ReviewRecord record)
     {
         int mistakeCount = 0;
 
@@ -12,37 +12,34 @@ public class ReviewEvaluator : MonoBehaviour
 
 
         // ========================================
-        // 떡 종류
+        // 소스
         // ========================================
 
-        if (GameData.OrderedRiceCake !=
-            GameData.SelectedRiceCake)
+        if (record.orderedFlavor != record.resultFlavor)
         {
             mistakeCount++;
 
             comments.Add(
-                "I ordered " +
-                GameData.OrderedRiceCake +
-                " rice cake, but got " +
-                GameData.SelectedRiceCake + "."
+                "I ordered "
+                + record.orderedFlavor
+                + ", but got "
+                + record.resultFlavor
+                + "."
             );
         }
 
 
         // ========================================
-        // 소스
+        // 떡 종류
         // ========================================
 
-        if (GameData.OrderedSauce !=
-            GameData.SelectedSauce)
+        if (record.orderedRiceCake !=
+            record.resultRiceCake)
         {
             mistakeCount++;
 
             comments.Add(
-                "I ordered " +
-                GameData.OrderedSauce +
-                ", but got " +
-                GameData.SelectedSauce + "."
+                "The rice cake type was wrong."
             );
         }
 
@@ -51,8 +48,8 @@ public class ReviewEvaluator : MonoBehaviour
         // 맵기
         // ========================================
 
-        if (GameData.OrderedSpicy !=
-            GameData.SelectedSpicy)
+        if (record.orderedSpicy !=
+            record.resultSpicy)
         {
             mistakeCount++;
 
@@ -67,8 +64,8 @@ public class ReviewEvaluator : MonoBehaviour
         // ========================================
 
         CompareIngredient(
-            GameData.OrderedFishCake,
-            GameData.HasFishCake,
+            record.orderedFishCake,
+            record.resultFishCake,
             "Fish cake",
             comments,
             ref mistakeCount
@@ -80,8 +77,8 @@ public class ReviewEvaluator : MonoBehaviour
         // ========================================
 
         CompareIngredient(
-            GameData.OrderedGreenOnion,
-            GameData.HasGreenOnion,
+            record.orderedGreenOnion,
+            record.resultGreenOnion,
             "Green onion",
             comments,
             ref mistakeCount
@@ -93,8 +90,8 @@ public class ReviewEvaluator : MonoBehaviour
         // ========================================
 
         CompareIngredient(
-            GameData.OrderedCheese,
-            GameData.HasCheese,
+            record.orderedCheese,
+            record.resultCheese,
             "Cheese",
             comments,
             ref mistakeCount
@@ -106,9 +103,9 @@ public class ReviewEvaluator : MonoBehaviour
         // ========================================
 
         CompareIngredient(
-            GameData.OrderedColpis,
-            GameData.HasColpis,
-            "Colpis",
+            record.orderedCoolpis,
+            record.resultCoolpis,
+            "Coolpis",
             comments,
             ref mistakeCount
         );
@@ -119,8 +116,8 @@ public class ReviewEvaluator : MonoBehaviour
         // ========================================
 
         CompareIngredient(
-            GameData.OrderedSteamedEgg,
-            GameData.HasSteamedEgg,
+            record.orderedSteamedEgg,
+            record.resultSteamedEgg,
             "Steamed egg",
             comments,
             ref mistakeCount
@@ -131,7 +128,7 @@ public class ReviewEvaluator : MonoBehaviour
         // 불 조절
         // ========================================
 
-        if (GameData.HeatResult == "Under")
+        if (record.heatResult == "Under")
         {
             mistakeCount++;
 
@@ -139,7 +136,7 @@ public class ReviewEvaluator : MonoBehaviour
                 "The food was undercooked."
             );
         }
-        else if (GameData.HeatResult == "Over")
+        else if (record.heatResult == "Over")
         {
             mistakeCount++;
 
@@ -161,10 +158,6 @@ public class ReviewEvaluator : MonoBehaviour
             );
 
 
-        // ========================================
-        // 리뷰 문장
-        // ========================================
-
         string finalComment;
 
         if (mistakeCount == 0)
@@ -175,7 +168,10 @@ public class ReviewEvaluator : MonoBehaviour
         else
         {
             finalComment =
-                string.Join(" ", comments);
+                string.Join(
+                    " ",
+                    comments
+                );
         }
 
 
@@ -188,28 +184,31 @@ public class ReviewEvaluator : MonoBehaviour
 
     private void CompareIngredient(
         bool ordered,
-        bool actual,
-        string ingredientName,
+        bool result,
+        string itemName,
         List<string> comments,
         ref int mistakeCount)
     {
-        if (ordered == actual)
+        if (ordered == result)
             return;
+
 
         mistakeCount++;
 
-        if (ordered && !actual)
+
+        if (ordered && !result)
         {
             comments.Add(
-                ingredientName +
-                " was missing."
+                itemName
+                + " was missing."
             );
         }
         else
         {
             comments.Add(
-                "I didn't order " +
-                ingredientName + "."
+                "I didn't order "
+                + itemName
+                + "."
             );
         }
     }
@@ -220,6 +219,7 @@ public class ReviewResult
 {
     public int stars;
     public string comment;
+
 
     public ReviewResult(
         int stars,
