@@ -20,11 +20,7 @@ public class ReviewEvaluator : MonoBehaviour
             mistakeCount++;
 
             comments.Add(
-                "I ordered "
-                + record.orderedFlavor
-                + ", but got "
-                + record.resultFlavor
-                + "."
+                record.orderedFlavor+ "을 시켰는데 "+ record.resultFlavor+ "이 나왔어요."
             );
         }
 
@@ -36,10 +32,11 @@ public class ReviewEvaluator : MonoBehaviour
         if (record.orderedRiceCake !=
             record.resultRiceCake)
         {
+            Debug.Log("주문: [" + record.orderedRiceCake + "] / 결과: [" + record.resultRiceCake + "]");
             mistakeCount++;
 
             comments.Add(
-                "The rice cake type was wrong."
+                "주문한 떡이 나오지 않았어요."
             );
         }
 
@@ -54,7 +51,7 @@ public class ReviewEvaluator : MonoBehaviour
             mistakeCount++;
 
             comments.Add(
-                "The spicy level was wrong."
+                "주문한 맵기로 나오지 않았어요."
             );
         }
 
@@ -66,7 +63,7 @@ public class ReviewEvaluator : MonoBehaviour
         CompareIngredient(
             record.orderedFishCake,
             record.resultFishCake,
-            "Fish cake",
+            "어묵",
             comments,
             ref mistakeCount
         );
@@ -79,7 +76,7 @@ public class ReviewEvaluator : MonoBehaviour
         CompareIngredient(
             record.orderedGreenOnion,
             record.resultGreenOnion,
-            "Green onion",
+            "대파",
             comments,
             ref mistakeCount
         );
@@ -92,7 +89,7 @@ public class ReviewEvaluator : MonoBehaviour
         CompareIngredient(
             record.orderedCheese,
             record.resultCheese,
-            "Cheese",
+            "치즈",
             comments,
             ref mistakeCount
         );
@@ -105,7 +102,7 @@ public class ReviewEvaluator : MonoBehaviour
         CompareIngredient(
             record.orderedCoolpis,
             record.resultCoolpis,
-            "Coolpis",
+            "쿨피스",
             comments,
             ref mistakeCount
         );
@@ -118,7 +115,7 @@ public class ReviewEvaluator : MonoBehaviour
         CompareIngredient(
             record.orderedSteamedEgg,
             record.resultSteamedEgg,
-            "Steamed egg",
+            "계란찜",
             comments,
             ref mistakeCount
         );
@@ -133,7 +130,7 @@ public class ReviewEvaluator : MonoBehaviour
             mistakeCount++;
 
             comments.Add(
-                "The food was undercooked."
+                "떡이 익혀지지 않았어요."
             );
         }
         else if (record.heatResult == "Over")
@@ -141,7 +138,7 @@ public class ReviewEvaluator : MonoBehaviour
             mistakeCount++;
 
             comments.Add(
-                "The food was overcooked."
+                "떡이 너무 익었어요."
             );
         }
 
@@ -163,7 +160,7 @@ public class ReviewEvaluator : MonoBehaviour
         if (mistakeCount == 0)
         {
             finalComment =
-                "Everything was perfect!";
+                "주문한 대로 배달되었어요!";
         }
         else
         {
@@ -200,15 +197,12 @@ public class ReviewEvaluator : MonoBehaviour
         {
             comments.Add(
                 itemName
-                + " was missing."
+                + " 누락되었어요."
             );
         }
         else
         {
-            comments.Add(
-                "I didn't order "
-                + itemName
-                + "."
+            comments.Add(itemName + " 주문하지 않았어요."
             );
         }
     }

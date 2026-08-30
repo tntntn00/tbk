@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Manager\WashManager.cs" />
     <Compile Include="Assets\Scripts\Scene\GameData.cs" />
     <Compile Include="Assets\Scripts\Manager\ReviewManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\BGMManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

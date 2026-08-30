@@ -47,7 +47,7 @@ public class ReviewManager : MonoBehaviour
 
         storeNameText.text =
             PlayerNameManager.PlayerName
-            + "의 떡볶이";
+            + "의 떡볶이 가게";
     }
 
 
@@ -223,23 +223,23 @@ public class ReviewManager : MonoBehaviour
 
 
         if (record.orderedFishCake)
-            parts.Add("Fish Cake");
+            parts.Add("어묵");
 
 
         if (record.orderedGreenOnion)
-            parts.Add("Green Onion");
+            parts.Add("대파");
 
 
         if (record.orderedCheese)
-            parts.Add("Cheese");
+            parts.Add("치즈");
 
 
         if (record.orderedCoolpis)
-            parts.Add("Coolpis");
+            parts.Add("쿨피스");
 
 
         if (record.orderedSteamedEgg)
-            parts.Add("Steamed Egg");
+            parts.Add("계란찜");
 
 
         return string.Join(

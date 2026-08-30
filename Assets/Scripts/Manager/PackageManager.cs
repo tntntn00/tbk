@@ -19,6 +19,11 @@ public class PackageManager : MonoBehaviour
     [SerializeField] private DeliveryHandPopup deliveryHandPopup;
     [SerializeField] private Button deliveryButton;
 
+    [Header("TbkImage")]
+    [SerializeField] private Sprite originalTBK;
+    [SerializeField] private Sprite creamTBK;
+    [SerializeField] private Sprite jajangTBK;
+
     [Header("UI")]
     [SerializeField] private TMP_Text statusText;
 
@@ -69,6 +74,8 @@ public class PackageManager : MonoBehaviour
             eggButton.GetComponent<RectTransform>();
 
 
+        UpdateSauceImage();
+
         TbkButton.interactable = true;
         colpisButton.interactable = true;
         eggButton.interactable = true;
@@ -92,7 +99,23 @@ public class PackageManager : MonoBehaviour
             "음식을 포장 용기에 넣으세요";
     }
 
+    private void UpdateSauceImage()
+    {
+        string tbksauce = GameData.SelectedSauce;
 
+        if (tbksauce=="오리지널")
+        {
+            TbkButton.image.sprite = originalTBK;
+        }
+        else if (tbksauce == "크림")
+        {
+            TbkButton.image.sprite = creamTBK;
+        }
+        else if (tbksauce == "짜장")
+        {
+            TbkButton.image.sprite = jajangTBK;
+        }
+    }
     // ========================================
     // 떡볶이 포장
     // ========================================

@@ -53,8 +53,8 @@ public class WashManager : MonoBehaviour
     {
         if (isWashing || washCompleted) return;
 
-        selectedRiceCake = "Wheat";
-        GameData.SelectedRiceCake = "Wheat";
+        selectedRiceCake = "밀떡";
+        GameData.SelectedRiceCake = "밀떡";
 
         riceCakeImage.sprite = wheatimage;
         riceCakeImage.enabled = true;
@@ -72,8 +72,8 @@ public class WashManager : MonoBehaviour
     {
         if (isWashing || washCompleted) return;
 
-        selectedRiceCake = "Rice";
-        GameData.SelectedRiceCake = "Rice";
+        selectedRiceCake = "쌀떡";
+        GameData.SelectedRiceCake = "쌀떡";
 
         riceCakeImage.sprite = riceimage;
         riceCakeImage.enabled = true;

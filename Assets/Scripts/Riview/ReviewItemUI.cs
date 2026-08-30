@@ -15,14 +15,14 @@ public class ReviewItemUI : MonoBehaviour
         string order,
         string comment)
     {
-        dayText.text =
-            "Day " + day;
+        //dayText.text =
+            //day + "일차";
 
         starText.text =
-            stars + " / 5";
+            stars + "/5점";
 
-        orderText.text =
-            "Order:\n" + order;
+        //orderText.text =
+            //"주문 내용: " + order;
 
         commentText.text =
             "\"" + comment + "\"";

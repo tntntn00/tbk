@@ -95,7 +95,7 @@ MonoBehaviour:
     atlasWidth: 2048
     atlasHeight: 2048
     characterSetSelectionMode: 6
-    characterSequence: AC00-D7A3
+    characterSequence: AC00-D7A3,2605,2606
     referencedFontAssetGUID: 6c7fb26b285086c4a85bba9510024d38
     referencedTextAssetGUID: 
     fontStyle: 0
@@ -223767,7 +223767,8 @@ MonoBehaviour:
     m_MarkToBaseAdjustmentRecords: []
     m_MarkToMarkAdjustmentRecords: []
   m_ShouldReimportFontFeatures: 0
-  m_FallbackFontAssetTable: []
+  m_FallbackFontAssetTable:
+  - {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_FontWeightTable:
   - regularTypeface: {fileID: 0}
     italicTypeface: {fileID: 0}

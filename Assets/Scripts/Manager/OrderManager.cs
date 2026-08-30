@@ -13,7 +13,7 @@ public class OrderManager : MonoBehaviour
     [Header("Day 1 Settings")]
     [SerializeField] private int maxOrdersPerDay = 5;
     [SerializeField] private float orderSpawnInterval = 8f;
-    [SerializeField] private float orderTimeLimit = 90f;
+    [SerializeField] private float orderTimeLimit = 60f;
 
     [Header("Bill Spacing")]
     [SerializeField] private float billSpacingX = 300f;
@@ -125,22 +125,22 @@ public class OrderManager : MonoBehaviour
     {
         string[] flavors =
         {
-            "Original",
-            "Cream",
-            "Jjajang"
+            "오리지널",
+            "크림",
+            "짜장"
         };
 
         string[] riceCakes =
         {
-            "Wheat",
-            "Rice"
+            "밀떡",
+            "쌀떡"
         };
 
         string[] spicyLevels =
         {
-            "Mild",
-            "Medium",
-            "Spicy"
+            "순한 맛",
+            "보통 맛",
+            "매운 맛"
         };
 
         BillData newBill =
@@ -309,7 +309,7 @@ public class OrderManager : MonoBehaviour
         Debug.Log(
             "ORDER #"
             + expiredBill.orderNumber
-            + " TIME OUT"
+            + " 시간 초과"
         );
 
 
@@ -369,7 +369,7 @@ public class OrderManager : MonoBehaviour
         Debug.Log(
             "ORDER #"
             + completedBill.orderNumber
-            + " COMPLETE"
+            + " 완료"
         );
 
 
@@ -445,25 +445,32 @@ public class OrderManager : MonoBehaviour
 
         if (bill.fishCake)
         {
-            result += "Fish Cake\n";
+            result += "어묵";
         }
 
 
         if (bill.greenOnion)
         {
-            result += "Green Onion\n";
+            if (result !="")
+            {
+                result += " / ";
+            }
+            result += "대파";
         }
-
 
         if (bill.cheese)
         {
-            result += "Cheese\n";
+            if (result != "")
+            {
+                result += " / ";
+            }
+            result += "치즈";
         }
 
 
         if (string.IsNullOrEmpty(result))
         {
-            result = "None";
+            result = "---";
         }
 
 
@@ -483,19 +490,23 @@ public class OrderManager : MonoBehaviour
 
         if (bill.coolpis)
         {
-            result += "Coolpis\n";
+            result += "쿨피스";
         }
 
 
         if (bill.steamedEgg)
         {
-            result += "Steamed Egg\n";
+            if (result !="")
+            {
+                result += " / ";
+            }
+            result += "계란찜";
         }
 
 
         if (string.IsNullOrEmpty(result))
         {
-            result = "None";
+            result = "---";
         }
 
 

@@ -138,14 +138,14 @@ public class CookManager : MonoBehaviour
 
     private void ApplyRiceCakeSelection()
     {
-        if (GameData.SelectedRiceCake == "Wheat")
+        if (GameData.SelectedRiceCake == "밀떡")
         {
             //riceCakeImage.color =
                 //new Color32(228, 210, 165, 255);
             riceCakeImage.sprite = wheatimage;
             riceCakeImage.enabled = true;
         }
-        else if (GameData.SelectedRiceCake == "Rice")
+        else if (GameData.SelectedRiceCake == "쌀떡")
         {
             //riceCakeImage.color =
                 //new Color32(248, 243, 230, 255);
@@ -164,7 +164,7 @@ public class CookManager : MonoBehaviour
         if (CannotChangeSelection())
             return;
 
-        selectedSauce = "Original";
+        selectedSauce = "오리지널";
 
         sauceImage.color =
             new Color32(230, 55, 45, 190);
@@ -181,7 +181,7 @@ public class CookManager : MonoBehaviour
         if (CannotChangeSelection())
             return;
 
-        selectedSauce = "Cream";
+        selectedSauce = "크림";
 
         sauceImage.color =
             new Color32(255, 190, 110, 190);
@@ -198,7 +198,7 @@ public class CookManager : MonoBehaviour
         if (CannotChangeSelection())
             return;
 
-        selectedSauce = "Jjajang";
+        selectedSauce = "짜장";
 
         sauceImage.color =
             new Color32(125, 75, 45, 222);
@@ -266,7 +266,7 @@ public class CookManager : MonoBehaviour
         if (CannotChangeSelection())
             return;
 
-        selectedSpicy = "Mild";
+        selectedSpicy = "순한 맛";
 
         RestoreSpicyButtonColors();
         mildButton.image.color = selectedpepperHighlightColor;
@@ -280,7 +280,7 @@ public class CookManager : MonoBehaviour
         if (CannotChangeSelection())
             return;
 
-        selectedSpicy = "Medium";
+        selectedSpicy = "보통 맛";
 
         RestoreSpicyButtonColors();
         mediumButton.image.color = selectedpepperHighlightColor;
@@ -294,7 +294,7 @@ public class CookManager : MonoBehaviour
         if (CannotChangeSelection())
             return;
 
-        selectedSpicy = "Spicy";
+        selectedSpicy = "매운 맛";
 
         RestoreSpicyButtonColors();
         spicyButton.image.color = selectedpepperHighlightColor;

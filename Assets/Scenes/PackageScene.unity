@@ -1953,8 +1953,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uCFE8\uD53C\uC2A4"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 6c7fb26b285086c4a85bba9510024d38, type: 2}
+  m_sharedMaterial: {fileID: 3819753877704407675, guid: 6c7fb26b285086c4a85bba9510024d38, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2120,8 +2120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeliveryHandPopup
   deliveryHand: {fileID: 1458964978}
-  hiddenPosition: {x: 1100, y: 0}
-  popupPosition: {x: 700, y: 0}
+  hiddenPosition: {x: 1150, y: 0}
+  popupPosition: {x: 720, y: 0}
   moveDuration: 0.5
 --- !u!1 &1464235398
 GameObject:
@@ -2468,8 +2468,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uACC4\uB780\uCC1C"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 6c7fb26b285086c4a85bba9510024d38, type: 2}
+  m_sharedMaterial: {fileID: 3819753877704407675, guid: 6c7fb26b285086c4a85bba9510024d38, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2807,6 +2807,9 @@ MonoBehaviour:
   eggButton: {fileID: 905888103}
   deliveryHandPopup: {fileID: 1458964981}
   deliveryButton: {fileID: 1843499704}
+  originalTBK: {fileID: -4625974028677701984, guid: 565051adfbe4f6d42a7b16098be49955, type: 3}
+  creamTBK: {fileID: 3775226852081897630, guid: 0111059e7724a894abee7740a0aa75e5, type: 3}
+  jajangTBK: {fileID: -2180551720641295590, guid: 8a3726e16ac556f4cb6fef5fa6995f72, type: 3}
   statusText: {fileID: 683897069}
   moveDuration: 0.4
   foodInBoxScale: 0.55
