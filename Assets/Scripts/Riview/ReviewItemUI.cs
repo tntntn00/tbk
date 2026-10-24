@@ -4,10 +4,10 @@ using UnityEngine;
 public class ReviewItemUI : MonoBehaviour
 {
     [Header("Review Texts")]
-    [SerializeField] private TMP_Text dayText;
-    [SerializeField] private TMP_Text starText;
-    [SerializeField] private TMP_Text orderText;
-    [SerializeField] private TMP_Text commentText;
+    [SerializeField] private TMP_Text dayText2;
+    [SerializeField] private TMP_Text starText2;
+    [SerializeField] private TMP_Text orderText2;
+    [SerializeField] private TMP_Text commentText2;
 
     public void Setup(
         int day,
@@ -18,13 +18,13 @@ public class ReviewItemUI : MonoBehaviour
         //dayText.text =
             //day + "일차";
 
-        starText.text =
+        starText2.text =
             stars + "/5점";
 
         //orderText.text =
             //"주문 내용: " + order;
 
-        commentText.text =
+        commentText2.text =
             "\"" + comment + "\"";
     }
 }

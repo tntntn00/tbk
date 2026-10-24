@@ -229,10 +229,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a209852f3a60e7243a1d18a29af9dd3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReviewItemUI
-  dayText: {fileID: 2140139017571211311}
-  starText: {fileID: 6898515208851996931}
-  orderText: {fileID: 6014520495062830669}
-  commentText: {fileID: 8694152516742014147}
+  dayText2: {fileID: 0}
+  starText2: {fileID: 0}
+  orderText2: {fileID: 0}
+  commentText2: {fileID: 0}
 --- !u!1 &7521113528817896213
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,8 +468,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
-  m_fontSizeBase: 90
+  m_fontSize: 44
+  m_fontSizeBase: 44
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

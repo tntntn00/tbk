@@ -18,7 +18,7 @@ public class ReviewManager : MonoBehaviour
     [Header("Review Layout")]
     [SerializeField] private float reviewSpacing = 250f;
 
-    private readonly List<ReviewItemUI> reviewItems =
+    private readonly List<ReviewItemUI> reviewItems2 =
         new List<ReviewItemUI>();
 
 
@@ -71,18 +71,18 @@ public class ReviewManager : MonoBehaviour
     {
         // 기존에 생성되어 있던 리뷰 삭제
         for (int i = 0;
-             i < reviewItems.Count;
+             i < reviewItems2.Count;
              i++)
         {
-            if (reviewItems[i] != null)
+            if (reviewItems2[i] != null)
             {
                 Destroy(
-                    reviewItems[i].gameObject
+                    reviewItems2[i].gameObject
                 );
             }
         }
 
-        reviewItems.Clear();
+        reviewItems2.Clear();
 
 
         // ========================================
@@ -121,7 +121,7 @@ public class ReviewManager : MonoBehaviour
 
         Debug.Log(
             "리뷰 갱신 완료 / "
-            + reviewItems.Count
+            + reviewItems2.Count
             + "개"
         );
     }
@@ -142,11 +142,11 @@ public class ReviewManager : MonoBehaviour
         // ----------------------------------------
 
         for (int i = 0;
-             i < reviewItems.Count;
+             i < reviewItems2.Count;
              i++)
         {
             RectTransform oldRect =
-                reviewItems[i]
+                reviewItems2[i]
                 .GetComponent<RectTransform>();
 
             Vector2 position =
@@ -184,7 +184,7 @@ public class ReviewManager : MonoBehaviour
 
 
         // 최신 리뷰를 리스트 0번에 저장
-        reviewItems.Insert(
+        reviewItems2.Insert(
             0,
             newReview
         );
@@ -273,7 +273,7 @@ public class ReviewManager : MonoBehaviour
 
 
         float requiredHeight =
-            reviewItems.Count
+            reviewItems2.Count
             * reviewSpacing;
 
 
