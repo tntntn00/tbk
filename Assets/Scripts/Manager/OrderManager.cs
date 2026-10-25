@@ -432,6 +432,23 @@ public class OrderManager : MonoBehaviour
         }
     }
 
+    public void CancelBill(BillItemUI ui)
+        {
+    int index = activeBillUIs.IndexOf(ui);
+
+    if (index < 0)
+        return;
+
+    Debug.Log("ORDER #" + activeBills[index].orderNumber + " 취소");
+
+    Destroy(ui.gameObject);
+
+    activeBillUIs.RemoveAt(index);
+    activeBills.RemoveAt(index);
+
+    RepositionBills();
+    }
+
 
     // ========================================
     // 재료 Text 생성

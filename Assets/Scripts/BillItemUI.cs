@@ -15,6 +15,9 @@ public class BillItemUI : MonoBehaviour
     [Header("Timer")]
     [SerializeField] private Slider timeSlider;
 
+    [Header("Cancel")]
+    [SerializeField] private Button cancelbutton;
+
     public void Setup(
         int orderNumber,
         string sauce,
@@ -50,5 +53,9 @@ public class BillItemUI : MonoBehaviour
     public void UpdateTimer(float remainingTime)
     {
         timeSlider.value = remainingTime;
+    }
+
+    public void OnclickCancel(){
+        OrderManager.Instance.CancelBill(this);
     }
 }
