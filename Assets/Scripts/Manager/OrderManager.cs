@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OrderManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class OrderManager : MonoBehaviour
     private int createdOrderCount = 0;
 
     private bool orderSystemStarted = false;
+    private bool isPaused = false;
 
     // 첫 번째 BillItem이 원래 가지고 있던 위치 저장
     private Vector2 billStartPosition;
@@ -59,6 +61,8 @@ public class OrderManager : MonoBehaviour
     private void Update()
     {
         if (!orderSystemStarted)
+            return;
+        if (isPaused)
             return;
 
         UpdateBillTimers();
@@ -92,6 +96,11 @@ public class OrderManager : MonoBehaviour
             return;
 
         billArea.gameObject.SetActive(visible);
+    }
+
+    public void ToggleBillArea()
+    {
+        billArea.gameObject.SetActive(!billArea.gameObject.activeSelf);
     }
 
 
@@ -291,6 +300,11 @@ public class OrderManager : MonoBehaviour
                 ExpireBill(i);
             }
         }
+    }
+
+    public void SetPaused(bool Paused)
+    {
+        isPaused = Paused;
     }
 
 

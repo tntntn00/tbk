@@ -54,6 +54,8 @@
     <Compile Include="Assets\Scripts\Riview\ReviewEvaluator.cs" />
     <Compile Include="Assets\Scripts\Manager\OrderManager.cs" />
     <Compile Include="Assets\Scripts\Manager\CookManager.cs" />
+    <Compile Include="Assets\Scripts\PausedOnEnter.cs" />
+    <Compile Include="Assets\Scripts\BillToggleButton.cs" />
     <Compile Include="Assets\Scripts\Manager\PlayerNameManager.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneChanger.cs" />
     <Compile Include="Assets\Scripts\OrderData.cs" />
