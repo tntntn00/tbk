@@ -5,7 +5,7 @@ public class MainSceneController : MonoBehaviour
 {
     public void GoToReviewScene()
     {
-        SceneManager.LoadScene("ReviewScene");
+        SceneManager.LoadScene("BaeminScene");
     }
 
     public void GoToWashScene()

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BillItemUI.cs" />
+    <Compile Include="Assets\Scripts\Manager\BaeminManager.cs" />
     <Compile Include="Assets\Scripts\Riview\ReviewItemUI.cs" />
     <Compile Include="Assets\Scripts\Riview\RiviewHistory.cs" />
     <Compile Include="Assets\Scripts\Riview\ReviewEvaluator.cs" />

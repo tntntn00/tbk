@@ -62,6 +62,13 @@ public class ReviewManager : MonoBehaviour
         );
     }
 
+        public void GoBackToStore()
+    {
+        SceneManager.LoadScene(
+            "BaeminScene"
+        );
+    }
+
 
     // ========================================
     // 리뷰 화면 전체 갱신
