@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BaeminScene.unity
     guid: 52ec188c6ed39c746a4930ff398aff76
+  - enabled: 1
+    path: Assets/Scenes/MoneyScene.unity
+    guid: e112a459e6a76d1438d12949e2547fce
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
