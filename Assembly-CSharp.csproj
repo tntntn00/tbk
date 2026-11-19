@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Manager\PackageManager.cs" />
     <Compile Include="Assets\Scripts\MainSceneController.cs" />
     <Compile Include="Assets\Scripts\Animation\LogoDropAnimation.cs" />
+    <Compile Include="Assets\Scripts\SettlementUI.cs" />
     <Compile Include="Assets\Scripts\DelieveryHandPopup.cs" />
     <Compile Include="Assets\Scripts\Manager\WashManager.cs" />
     <Compile Include="Assets\Scripts\Scene\GameData.cs" />

@@ -455,12 +455,19 @@ public class OrderManager : MonoBehaviour
 
     Debug.Log("ORDER #" + activeBills[index].orderNumber + " 취소");
 
+    ReviewHistory.AddCanceledOrder(activeBills[index]);
+
     Destroy(ui.gameObject);
 
     activeBillUIs.RemoveAt(index);
     activeBills.RemoveAt(index);
 
     RepositionBills();
+
+    if (ReviewHistory.Records.Count >= 5)
+{
+    UnityEngine.SceneManagement.SceneManager.LoadScene("MoneyScene");
+}
     }
 
 

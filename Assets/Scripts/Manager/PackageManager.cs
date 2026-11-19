@@ -734,8 +734,13 @@ public class PackageManager : MonoBehaviour
         // MainScene 복귀
         // ----------------------------------------
 
-        SceneManager.LoadScene(
-            "MainScene"
-        );
+        if (ReviewHistory.Records.Count >= 5)
+{
+    SceneManager.LoadScene("MoneyScene");
+}
+else
+{
+    SceneManager.LoadScene("MainScene");
+}
     }
 }

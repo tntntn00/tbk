@@ -43,6 +43,7 @@ public class ReviewRecord
     public bool resultSteamedEgg;
 
     public string heatResult;
+    public string status = "정상처리";
 }
 
 
@@ -148,4 +149,18 @@ public static class ReviewHistory
             + Records.Count
         );
     }
+
+    public static void AddCanceledOrder(BillData bill)
+{
+    if (bill == null)
+        return;
+
+    ReviewRecord record = new ReviewRecord();
+
+    record.day = GameData.CurrentDay;
+    record.orderNumber = bill.orderNumber;
+    record.status = "주문 취소";
+
+    Records.Add(record);
+}
 }
