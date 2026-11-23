@@ -72,7 +72,19 @@ public class OrderManager : MonoBehaviour
     // ========================================
     // 이름 입력 완료 후 주문 시스템 시작
     // ========================================
+    public void ResetForNewRound()
+    {
+    StopAllCoroutines();
 
+    activeBills.Clear();
+    activeBillUIs.Clear();
+
+    nextOrderNumber = 1;
+    createdOrderCount = 0;
+    orderSystemStarted = false;
+    isPaused = false;
+    hasBillStartPosition = false;
+    }
     public void StartOrderSystem()
     {
         if (orderSystemStarted)
@@ -335,16 +347,17 @@ public class OrderManager : MonoBehaviour
         }
 
 
+                ReviewHistory.AddCanceledOrder(expiredBill);   // 기록에 저장 (0점 처리)
+
         activeBillUIs.RemoveAt(index);
         activeBills.RemoveAt(index);
 
-
         RepositionBills();
 
-        // 나중에 여기서
-        // 시간 초과 리뷰 1점 저장
-        // 실패 주문 카운트 증가
-        // Day 정산에 반영
+        if (ReviewHistory.Records.Count >= 5)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MoneyScene");
+        }
     }
 
 

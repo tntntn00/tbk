@@ -33,6 +33,7 @@ public class PlayerNameManager : MonoBehaviour
             if (OrderManager.Instance != null)
             {
                 OrderManager.Instance.SetBillAreaVisible(true);
+                OrderManager.Instance.StartOrderSystem();
             }
 
             return;

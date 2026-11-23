@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class SettlementUI : MonoBehaviour
 {
     [Header("Score")]
@@ -20,9 +22,18 @@ public class SettlementUI : MonoBehaviour
 
     [Header("total")]
     [SerializeField] private TMP_Text Round1Total;
-[SerializeField] private TMP_Text TotalScore;
+
+    [SerializeField] private TMP_Text Round2Total;
+    [SerializeField] private TMP_Text Round3Total;
+    [SerializeField] private TMP_Text Round4Total;
+    [SerializeField] private TMP_Text TotalScore;
+
+    [Header("Final")]
+    [SerializeField] private GameObject finalPanel;
+    [SerializeField] private Button nextroundbutton;
     void Start()
 {
+    nextroundbutton.gameObject.SetActive(true);
     Firstscore.text = GetScoreText(0);
     Secondscore.text = GetScoreText(1);
     Thirdscore.text = GetScoreText(2);
@@ -36,9 +47,23 @@ public class SettlementUI : MonoBehaviour
     Fifthcondition.text = ReviewHistory.Records[4].status;
 
     int roundSum = GetStars(0) + GetStars(1) + GetStars(2) + GetStars(3) + GetStars(4);
+GameProgress.RoundScores[GameProgress.Round - 1] = roundSum;  // 이번 라운드 점수 저장
 
-    Round1Total.text = roundSum + "/25점";
-    TotalScore.text = roundSum + "/100점";
+Round1Total.text = RoundText(0);
+Round2Total.text = RoundText(1);
+Round3Total.text = RoundText(2);
+Round4Total.text = RoundText(3);
+
+int total = 0;
+foreach (int s in GameProgress.RoundScores)
+    if (s >= 0) total += s;
+TotalScore.text = total + "/100점";
+
+    if (GameProgress.Round >= 4)
+    {
+        finalPanel.SetActive(true);
+        nextroundbutton.gameObject.SetActive(false);
+    }
 }
 
 string GetScoreText(int index)
@@ -60,5 +85,26 @@ string GetScoreText(int index)
         return 0;
 
     return reviewEvaluator.Evaluate(record).stars;
+}
+
+    string RoundText(int index)
+{
+    int s = GameProgress.RoundScores[index];
+    return s < 0 ? "-" : s + "/25점";
+}
+
+    public void OnNextRoundButton()
+{
+    if (GameProgress.Round >= 4)
+        return;   // 마지막 라운드는 패널로 마무리
+
+    GameProgress.Round++;
+
+    ReviewHistory.Records.Clear();
+
+    if (OrderManager.Instance != null)
+        OrderManager.Instance.ResetForNewRound();
+
+    SceneManager.LoadScene("MainScene");
 }
 }
